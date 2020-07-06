@@ -1,38 +1,49 @@
-.App {
-  text-align: center;
+/*body {
+    padding-top: 70px;
+}*/
+header {
+    background-color: powderblue;
+    position: fixed;
+    padding-left: 15px;
+    width: 100%;
+    z-index: 10;
+    top: 0;
+}
+header h1 {
+    color: white;
+}
+form {
+    background-color: aliceblue;
+    padding: 20px 10px 5px 10px;
+    margin-bottom: 10px;
+    border: solid 1px lightblue;
+}
+.react-datepicker__header {
+    background-color: powderblue !important;
+}
+.react-datepicker__navigation--next {
+    border-left-color: #aaa;
+}
+.react-datepicker__navigation--previous {
+    border-right-color: #aaa;
+}
+.react-datepicker__day:hover {
+    background-color: powderblue !important;
+}
+.results-list .row.results-list-head {
+    background: black;
+    color: white;
+    font-weight: bolder;
+    padding: 5px;
+}
+.results-list .row {
+    margin-left: 0;
+    margin-right: 0;
+    font-size: smaller;
+    border-bottom: solid 1px lightgrey;
+}
+.infinite-scroll-component  .row:hover {
+    background:aliceblue;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+    
