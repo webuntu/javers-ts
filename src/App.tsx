@@ -8,7 +8,7 @@ interface IProps {
 }
 
 interface IState {
-    search_conditions?: any
+    search_conditions?: FormData
     search_results: any
     search_completed: boolean
     search_message?: JSX.Element
@@ -17,16 +17,16 @@ interface IState {
 class App extends React.Component<IProps, IState> { 
 
     EVENTS_URL: string;
-    RESULTS_FIRST_REQUEST: number;
-    RESULTS_PER_REQUEST: number;
+    RESULTS_FIRST_REQUEST: string;
+    RESULTS_PER_REQUEST: string;
 
     constructor(props: IProps) {
 
         super(props);
 
-        this.EVENTS_URL             = 'http://localhost:8070/suid/audit/changes';
-        this.RESULTS_FIRST_REQUEST  = 100;
-        this.RESULTS_PER_REQUEST    = 100;
+        this.EVENTS_URL             = 'http://react.webuntu/index.php?request=events';
+        this.RESULTS_FIRST_REQUEST  = '100';
+        this.RESULTS_PER_REQUEST    = '100';
 
         this.state = {
             search_results: [],
@@ -36,7 +36,7 @@ class App extends React.Component<IProps, IState> {
         this.search     = this.search.bind(this);
         this.searchMore = this.searchMore.bind(this);
     }
-
+    
     search(event: FormEvent) {
 
         var fd =  new FormData(event.target as HTMLFormElement);
@@ -51,18 +51,23 @@ class App extends React.Component<IProps, IState> {
         
     }
     
-    // searchMore(conditions: string) {
     searchMore(event: Event) {
 
-        this.state.search_conditions.set('page', parseInt(this.state.search_conditions.get('page'))+1);
-        this.state.search_conditions.set('size', this.RESULTS_PER_REQUEST);
+        const search_conditions: FormData = this.state.search_conditions!;
+        const next_page: string = (parseInt(search_conditions.get('page')! as string)+1).toString();
+
+        search_conditions.set('page', next_page);
+        search_conditions.set('size', this.RESULTS_PER_REQUEST);
         this.searchFetchResults();
         
     }
     
     searchFetchResults() {
+// console.log(this.state.search_conditions as unknown as string);
+// console.log(new URLSearchParams(this.state.search_conditions as unknown as string).toString());
+// document.xxx = this.state.search_conditions;
 
-        fetch(this.EVENTS_URL + '&' +  new URLSearchParams(this.state.search_conditions).toString())
+        fetch(this.EVENTS_URL + '&' +  new URLSearchParams(this.state.search_conditions as unknown as string).toString())
         .then(response => response.json())
         .then(result => this.updateResults(result));
         
@@ -102,4 +107,3 @@ class App extends React.Component<IProps, IState> {
 }
 
 export default App;
-
