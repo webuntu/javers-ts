@@ -7,15 +7,21 @@ import { registerLocale } from "react-datepicker";
 import ru from "date-fns/locale/ru";
 registerLocale("ru", ru);
 
-class DateRange extends React.Component<any, any> {
+interface IDateRangeProps {}
+interface IDateRangeState {
+    fromDate?: Date;
+    toDate?: Date;
+}
+
+class DateRange extends React.Component<{}, IDateRangeState> {
     
-    constructor(props: any) {
+    constructor(props: {}) {
         super(props);
-        this.state = {
-            fromDate: '',
-            toDate: ''
-        };
-        
+        this.state={
+            fromDate: undefined,
+            toDate: undefined
+        } 
+
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange   = this.handleEndDateChange.bind(this);
     }
@@ -27,7 +33,6 @@ class DateRange extends React.Component<any, any> {
     handleEndDateChange(value: Date) {
         this.setState({toDate: value});
     }
-//                        dateFormat="dd.MM.yyyy"
     
     render() {
         return (
@@ -42,7 +47,7 @@ class DateRange extends React.Component<any, any> {
                         startDate={this.state.fromDate}
                         endDate={this.state.toDate}
                         locale="ru"
-                        dateFormat="yyyy.MM.dd"
+                        dateFormat="dd.MM.yyyy"
                         name="from"
                         placeholderText="Начальная дата"
                         showMonthDropdown
@@ -61,7 +66,7 @@ class DateRange extends React.Component<any, any> {
                         endDate={this.state.toDate}
                         minDate={this.state.fromDate}
                         locale="ru"
-                        dateFormat="yyyy.MM.dd"
+                        dateFormat="dd.MM.yyyy"
                         name="to"
                         placeholderText="Конечная дата"
                         showMonthDropdown

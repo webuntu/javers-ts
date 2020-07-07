@@ -4,27 +4,25 @@ import SearchResults from './searchresults/searchresults';
 import './bootstrap.min.css';
 import './App.css';
 
-interface IProps {
-}
-
-interface IState {
+interface IAppState {
     search_conditions?: FormData
     search_results: any
     search_completed: boolean
     search_message?: JSX.Element
 }
 
-class App extends React.Component<IProps, IState> { 
+class App extends React.Component<{}, IAppState> { 
 
     EVENTS_URL: string;
     RESULTS_FIRST_REQUEST: string;
     RESULTS_PER_REQUEST: string;
 
-    constructor(props: IProps) {
+    constructor(props: {}) {
 
         super(props);
 
         this.EVENTS_URL             = 'http://localhost:8070/suid/audit/changes';
+        // this.EVENTS_URL             = 'http://react.webuntu/index.php?request=events';
         this.RESULTS_FIRST_REQUEST  = '100';
         this.RESULTS_PER_REQUEST    = '100';
 

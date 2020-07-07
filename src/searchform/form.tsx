@@ -3,19 +3,29 @@ import DateRange from './daterange';
 import FormInput from './input';
 import FormSelect from './select';
 
-interface IProps {}
-interface IState {}
+interface ISearchFunction {
+    (event: FormEvent): void;
+}
+interface ISearchFormProps {
+    search: ISearchFunction; 
+}
+interface ISearchFormState {
+    initiators: string[];
+    objects: string[];
+}
 
-class SearchForm extends React.Component<any, any> {
+class SearchForm extends React.Component<ISearchFormProps, ISearchFormState> {
 
     AUTHORS_URL: string;
     INSTANCES_URL: string;
 
-    constructor(props: any) {
+    constructor(props: ISearchFormProps) {
         super(props);
         
         this.AUTHORS_URL   = 'http://localhost:8070/suid/audit/authors';
         this.INSTANCES_URL = 'http://localhost:8070/suid/audit/typesundercontrol';
+        // this.AUTHORS_URL   = 'http://react.webuntu/index.php?request=initiators';
+        // this.INSTANCES_URL = 'http://react.webuntu/index.php?request=objects';
         
         this.state = {
             initiators: [],

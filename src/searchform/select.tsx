@@ -1,13 +1,20 @@
 import React from 'react';
 
-class FormSelect extends React.Component<any, any> {
+interface IFormSelectProps {
+    placeholder: string;
+    name: string; 
+    options: string[];
+    label: string;
+}
+
+class FormSelect extends React.Component<IFormSelectProps, {}> {
 
     render() {
 
         const options: JSX.Element[] = [];
         options.push(<option key="" value="">{this.props.placeholder}</option>);
         
-        this.props.options.length && this.props.options.forEach((option: string,index: string) => {
+        this.props.options.length && this.props.options.forEach((option: string,index: number) => {
             options.push(
                 <option key={index} value={option}>{option}</option>
             );

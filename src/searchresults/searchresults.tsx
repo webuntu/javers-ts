@@ -1,12 +1,12 @@
 import * as React from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
 
-class PropertyList extends React.Component<any, any> {
+class PropertyList extends React.Component<{properties: any}, {}> {
 
     render() {
         
         const properties_list: JSX.Element[] = [];
-        const properties = this.props.properties;
+        const properties: string[] = this.props.properties;
 
         for(var key in properties) {
             properties_list.push(
@@ -23,7 +23,7 @@ class PropertyList extends React.Component<any, any> {
     
 }
 
-class SearchResultRow extends React.Component<any, any> {
+class SearchResultRow extends React.Component<{result: any}, {}> {
 
     render() {
 
@@ -43,7 +43,14 @@ class SearchResultRow extends React.Component<any, any> {
     
 }
 
-class SearchResults extends React.Component<any, any> {
+interface ISearchResultsProps {
+    results: any;
+    search: any;
+    hasMore: boolean;
+    endMessage?: JSX.Element;
+}
+
+class SearchResults extends React.Component<ISearchResultsProps, {}> {
     
     componentDidMount() {
         window.addEventListener('resize', this.updateDimensions);
@@ -55,8 +62,6 @@ class SearchResults extends React.Component<any, any> {
     updateDimensions() {
         const scrollableDiv = document.getElementById('scrollableDiv');
         if(scrollableDiv !== null) {
-            // let innerHeight = window.innerHeight - scrollableDiv.offsetTop;
-            // scrollableDiv.style.height = innerHeight + "px";
             scrollableDiv.style.height = (window.innerHeight - scrollableDiv.offsetTop).toString() + "px";
         }
     }
@@ -106,4 +111,3 @@ class SearchResults extends React.Component<any, any> {
 }
     
 export default SearchResults;
-

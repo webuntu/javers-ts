@@ -1,6 +1,6 @@
 import React from 'react';
 
-class FormInput extends React.Component<any, any> {
+class FormInput extends React.Component<{name: string; label: string; placeholder?: string;}, {}> {
     render() {
         return (
             <React.Fragment>    
