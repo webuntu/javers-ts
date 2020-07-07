@@ -1,33 +1,46 @@
-import React from 'react';
+import React,{FormEvent} from 'react';
 import SearchForm  from './searchform/form';
 import SearchResults from './searchresults/searchresults';
 import './bootstrap.min.css';
 import './App.css';
 
-class App extends React.Component { 
+interface IProps {
+}
 
-    constructor(props) {
+interface IState {
+    search_conditions?: any
+    search_results: any
+    search_completed: boolean
+    search_message?: JSX.Element
+}
+
+class App extends React.Component<IProps, IState> { 
+
+    EVENTS_URL: string;
+    RESULTS_FIRST_REQUEST: number;
+    RESULTS_PER_REQUEST: number;
+
+    constructor(props: IProps) {
+
         super(props);
 
-        this.EVENTS_URL            = 'http://react.webuntu/index.php?request=events';
-        this.RESULTS_FIRST_REQUEST = 100;
-        this.RESULTS_PER_REQUEST   = 100;
+        this.EVENTS_URL             = 'http://localhost:8070/suid/audit/changes';
+        this.RESULTS_FIRST_REQUEST  = 100;
+        this.RESULTS_PER_REQUEST    = 100;
 
         this.state = {
-            search_conditions: null,
             search_results: [],
-            search_completed: false,
-            search_message: ""
+            search_completed: false
         };
 
         this.search     = this.search.bind(this);
         this.searchMore = this.searchMore.bind(this);
     }
 
-    search(event) {
+    search(event: FormEvent) {
 
-        var fd =  new FormData(event.target);
-        fd.append('size', this.RESULTS_FIRST_REQUEST);
+        var fd =  new FormData(event.target as HTMLFormElement);
+        fd.append('size', this.RESULTS_FIRST_REQUEST.toString());
         this.setState({ 
             search_conditions: fd, 
             search_results: [],
@@ -38,7 +51,8 @@ class App extends React.Component {
         
     }
     
-    searchMore(conditions) {
+    // searchMore(conditions: string) {
+    searchMore(event: Event) {
 
         this.state.search_conditions.set('page', parseInt(this.state.search_conditions.get('page'))+1);
         this.state.search_conditions.set('size', this.RESULTS_PER_REQUEST);
@@ -54,7 +68,7 @@ class App extends React.Component {
         
     }
     
-    updateResults(result) {
+    updateResults(result: any) {
         
         if(!result) { 
             this.setState({ search_completed: true });
