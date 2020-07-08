@@ -61,9 +61,6 @@ class App extends React.Component<{}, IAppState> {
     }
     
     searchFetchResults() {
-// console.log(this.state.search_conditions as unknown as string);
-// console.log(new URLSearchParams(this.state.search_conditions as unknown as string).toString());
-// document.xxx = this.state.search_conditions;
 
         fetch(this.EVENTS_URL + '&' +  new URLSearchParams(this.state.search_conditions as unknown as string).toString())
         .then(response => response.json())
